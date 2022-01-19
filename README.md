@@ -1,7 +1,7 @@
 # SUPREME
 SUPREME: A cancer subtype prediction methodology using Graph Convolutional Neural Networks
 
-***
+---
 
 ### How to run SUPREME?
 
@@ -24,6 +24,8 @@ Run `SUPREME.py` with the proper input data generated.
   - `learning_rates`: list of values to try as learning rate (default is [0.001, 0.01, 0.1].)
   - `hid_sizes`: list of values to try as hidden layer size (default is [16, 32, 64, 128, 256, 512].)
   - `xtimes`: the number of SUPREME runs for each hyperparameter combination (default: 10, should be more than 1.) 
+
+---
 
 #### How to generate input data for SUPREME?
 `base_path` should contain a data folder named `dataset_name`
