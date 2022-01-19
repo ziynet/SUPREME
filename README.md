@@ -1,11 +1,13 @@
 # SUPREME
 SUPREME: A cancer subtype prediction methodology using Graph Convolutional Neural Networks
 
+***
+
 ### How to run SUPREME?
 
 Run `SUPREME.py` with the proper input data generated.
 
-#### User Options
+**User Options**
 
 - Adjust the following variables (lines 2-6):
   - `base_path`: the path to SUPREME github folder
@@ -23,5 +25,5 @@ Run `SUPREME.py` with the proper input data generated.
   - `hid_sizes`: list of values to try as hidden layer size (default is [16, 32, 64, 128, 256, 512].)
   - `xtimes`: the number of SUPREME runs for each hyperparameter combination (default: 10, should be more than 1.) 
 
-#### Input Data Generation for SUPREME
+#### How to generate input data for SUPREME?
 `base_path` should contain a data folder named `dataset_name`
