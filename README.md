@@ -10,7 +10,7 @@ You can use `SUPREME.py` or `SUPREME.ipynb` (for jupyter notebook users).
 - Adjust the following variables:
   - `base_path`: the path to SUPREME github folder
   - `dataset_name`: the data folder name in `base_path` including required input data for SUPREME run
-  - `node_networks`: list of the datatypes to use
+  - `node_networks`: list of the datatypes to use (should have at least 1 datatype)
   - `features_to_integrate`:  list of the datatypes to integrate as raw feature
   - `addRawFeat`: *True* or *False*: If *True*, raw features from listed datatypes in `features_to_integrate` will be integrated; if *False*, no raw features will be integrated.
 - Adjust the following hyperparameters:
