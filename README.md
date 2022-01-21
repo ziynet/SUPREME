@@ -40,7 +40,7 @@ Run `SUPREME.py` after generating the proper input data.
   - `test_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of sample for test,)* containing the sample indexes for test.
 
 ---
-***Note that*** sample size and the order of the samples should be the same for whole variables. Sample indexes should start from 0 till *sample size-1* consistent with the sample order.  
+***!! Note that*** sample size and the order of the samples should be the same for whole variables. Sample indexes should start from 0 till *sample size-1* consistent with the sample order.  
 - `labels.pkl` will have the labels of the ordered samples. (*i*th value has the label of sample with index *i*)  
 - `{datatype name}.pkl` will have the values of the ordered samples in each datatype (feature size could be datatype specific). (*i*th row has the feature values of sample with index *i*)  
 - `edge.list_{datatype name}.pkl` will have the matching sample indexes to represent interactions.  
