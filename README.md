@@ -33,7 +33,8 @@ Run `SUPREME.py` after generating the proper input data.
 - In the *data folder*, there should be one label file named `labels.pkl`. 
   - `labels.pkl`: *<class 'torch.Tensor'>* with the shape of *torch.Size([{*sample size*}])*
 - In addition, the *data folder* will contain two '.pkl files per datatype. 
-  - `{datatype name}.pkl`: *<class 'torch.Tensor'>* with the shape of *torch.Size([{*sample size*}])*
-  - `edge.list_{datatype name}.pkl`: *<class 'torch.Tensor'>* with the shape of *torch.Size([{*sample size*}])*
-- The *data folder* might have a file named `mask_values.pkl` if the user wants to specify test samples.
-  - `mask_values.pkl`: *<class 'torch.Tensor'>* with the shape of *torch.Size([{*sample size*}])*
+  - `{datatype name}.pkl`: *<class 'pandas.core.frame.DataFrame'>* with the shape of *({sample size}, {selected feature size for that datatype})*
+  - `edge.list_{datatype name}.pkl`: *<class 'pandas.core.frame.DataFrame'>* with the shape of *({Number of patient-patient pair interaction for this datatype}, 3)*. First and second columns will contain patient indexes for the patient-patient pairs having interactions and third column will be the weight of the interaction.
+- The *data folder* might have a file named `mask_values.pkl` if the user wants to specify test samples. `mask_values.pkl` will have two variables in it:
+  - `train_valid_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of samplefor training and validation,)* containing the sample indexes for training and validation.
+  - `test_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of samplefor test,)* containing the sample indexes for test.
