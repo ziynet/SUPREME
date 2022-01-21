@@ -36,8 +36,18 @@ Run `SUPREME.py` after generating the proper input data.
   and the type of  
 
   > <class 'torch.Tensor'>
-- In addition, the *data folder* will contain two '.pkl files per datatype.
-  - `{datatype name}.pkl`: 
-  - `edge.list_{datatype name}.pkl`:
+- In addition, the *data folder* will contain two '.pkl files per datatype. 
+  `{datatype name}.pkl` with the shape of  
+  > torch.Size([{*sample size*}])
+
+  and the type of  
+
+  > <class 'torch.Tensor'>
+  `edge.list_{datatype name}.pkl` with the shape of  
+  > torch.Size([{*sample size*}])
+
+  and the type of  
+
+  > <class 'torch.Tensor'>
 - The *data folder* might have a file named `mask_values.pkl` if the user wants to specify test samples.
   - `mask_values.pkl`:
