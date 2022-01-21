@@ -30,10 +30,9 @@ Run `SUPREME.py` after generating the proper input data.
 #### How to generate input data for SUPREME?
 - `base_path` should contain a folder named `dataset_name` (called as *data folder* afterwards). 
 - `node_networks` will have the list of the datatype names that will be used for SUPREME run. These names are user-defined, but should be consistent for all the file names.
-- In the *data folder*, there should be one label file named `labels.pkl`.
-  - `labels.pkl`: 
-  > `print(labels.shape)` (`torch.Size([{*sample size*}])`)
-  > `print(type(labels))` (`<class 'torch.Tensor'>)
+- In the *data folder*, there should be one label file named `labels.pkl` with the shape of 
+- > torch.Size([{*sample size*}]) and the type of
+  > <class 'torch.Tensor'>
 - In addition, the *data folder* will contain two '.pkl files per datatype.
   - `{datatype name}.pkl`: 
   - `edge.list_{datatype name}.pkl`:
