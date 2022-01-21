@@ -5,7 +5,7 @@ SUPREME: A cancer subtype prediction methodology using Graph Convolutional Neura
 
 ### How to run SUPREME?
 
-Run `SUPREME.py` with the proper input data generated.
+Run `SUPREME.py` after generating the proper input data.
 
 **User Options**
 
@@ -31,7 +31,9 @@ Run `SUPREME.py` with the proper input data generated.
 - `base_path` should contain a folder named `dataset_name` (called as *data folder* afterwards). 
 - `node_networks` will have the list of the datatype names that will be used for SUPREME run. These names are user-defined, but should be consistent for all the file names.
 - In the *data folder*, there should be one label file named `labels.pkl`.
-  - `labels.pkl`:
+  - `labels.pkl`: 
+  > `print(labels.shape)` (`torch.Size([{*sample size*}])`)
+  > `print(type(labels))` (`<class 'torch.Tensor'>)
 - In addition, the *data folder* will contain two '.pkl files per datatype.
   - `{datatype name}.pkl`: 
   - `edge.list_{datatype name}.pkl`:
