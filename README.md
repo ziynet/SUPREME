@@ -33,7 +33,7 @@ Run `SUPREME.py` after generating the proper input data.
 - In the *data folder*, there should be one label file named `labels.pkl` with the shape of  
   > torch.Size([{*sample size*}])
 
-and the type of  
+  and the type of  
 
   > <class 'torch.Tensor'>
 - In addition, the *data folder* will contain two '.pkl files per datatype.
