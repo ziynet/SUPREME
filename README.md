@@ -9,7 +9,7 @@ For any questions/issues about SUPREME, please feel free to comment/discuss at [
 
 Run `SUPREME.py` after generating the proper input data.
 
-### **User Options**
+### User Options
 
 - Adjust the following variables (lines 2-6):
   - `base_path`: the path to SUPREME github folder
@@ -29,7 +29,7 @@ Run `SUPREME.py` after generating the proper input data.
 
 ---
 
-#### How to generate input data for SUPREME?
+### How to generate input data for SUPREME?
 - `base_path` should contain a folder named `dataset_name` (called as *data folder* afterwards). 
 - `node_networks` will have the list of the datatype names that will be used for SUPREME run. These names are user-defined, but should be consistent for all the file names.
 - In the *data folder*, there should be one label file named `labels.pkl`. 
