@@ -5,11 +5,11 @@ For any questions/issues about SUPREME, please feel free to comment/discuss at [
 
 ---
 
-### How to run SUPREME?
+## How to run SUPREME?
 
 Run `SUPREME.py` after generating the proper input data.
 
-**User Options**
+### **User Options**
 
 - Adjust the following variables (lines 2-6):
   - `base_path`: the path to SUPREME github folder
