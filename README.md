@@ -25,12 +25,13 @@ Run `SUPREME.py` after generating the proper input data.
   - `patience`: patience for early stopping (default is 30.)
   - `learning_rates`: list of values to try as learning rate (default is [0.001, 0.01, 0.1].)
   - `hid_sizes`: list of values to try as hidden layer size (default is [16, 32, 64, 128, 256, 512].)
-  - `xtimes`: the number of SUPREME runs for each hyperparameter combination (default: 10, should be more than 1.) 
+  - `xtimes`: the number of SUPREME runs to select hyperparameter combination (default: 50, should be more than 1.)
+  - `xtimes2`: the number of SUPREME runs for the selected hyperparameter combination (default: 10, should be more than 1.) 
 
 ---
 
 ### How to generate input data for SUPREME?
-- `base_path` should contain a folder named `dataset_name` (called as *data folder* afterwards). 
+- `base_path` should contain a folder named `dataset_name` (called as *data folder* afterwards) under `data` folder . 
 - `node_networks` will have the list of the datatype names that will be used for SUPREME run. These names are user-defined, but should be consistent for all the file names.
 - In the *data folder*, there should be one label file named `labels.pkl`. 
   - `labels.pkl`: *<class 'torch.Tensor'>* with the shape of *torch.Size([{*sample size*}])*
@@ -40,7 +41,7 @@ Run `SUPREME.py` after generating the proper input data.
 - The *data folder* might have a file named `mask_values.pkl` if the user wants to specify test samples. `mask_values.pkl` will have two variables in it:
   - `train_valid_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of sample for training and validation,)* containing the sample indexes for training and validation.
   - `test_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of sample for test,)* containing the sample indexes for test.
-
+ If `mask_values.pkl` does not exist, SUPREME will generate train and test splits by itself.
 ---
 ***!! Note that*** sample size and the order of the samples should be the same for whole variables. Sample indexes should start from 0 till *sample size-1* consistent with the sample order.  
 - `labels.pkl` will have the labels of the ordered samples. (*i*th value has the label of sample with index *i*)  
