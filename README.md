@@ -1,7 +1,7 @@
 # SUPREME
 SUPREME: A cancer subtype prediction methodology using Graph Convolutional Neural Networks
 
-For any questions/issues about SUPREME, please feel free to comment/discuss at [https://ziynetnesibe.com/supreme](https://ziynetnesibe.com/supreme)
+For any questions/issues about SUPREME, please feel free to comment/discuss at [https://ziynetnesibe.com/SUPREME](https://ziynetnesibe.com/SUPREME)
 
 ---
 
