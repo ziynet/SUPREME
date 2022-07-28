@@ -81,7 +81,7 @@ Files under the *SUPREME_sample_data_results* folder:
 
 ## How to customize SUPREME?
 
-### SUPREME Flowchart:
+### SUPREME Flowchart
  <img src="https://ziynetnesibe.com/wp-content/uploads/2022/07/SUPREME_Flowchart.png"/>
  <!-- ![SUPREME Flowchart]  -->
  
