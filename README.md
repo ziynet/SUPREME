@@ -1,25 +1,72 @@
-Will be publicly available soon..
+# SUPREME: A cancer subtype prediction methodology integrating multiomics data using Graph Convolutional Neural Network
 
-# SUPREME
-SUPREME: A cancer subtype prediction methodology using Graph Convolutional Neural Networks
+ <img src="https://ziynetnesibe.com/wp-content/uploads/2022/07/Figure1-2.png" width="800" height="450" />
+ <!-- ![SUPREME pipeline]  -->
+ 
+SUPREME (a cancer `SU`btype `PRE`diction `ME`thodology)
 
-For any questions/issues about SUPREME, please feel free to comment/discuss at [https://ziynetnesibe.com/SUPREME](https://ziynetnesibe.com/SUPREME)
+An integrative node classification framework, called SUPREME (a **su**btype **pre**diction **me**thodology), that utilizes graph convolutions on multiple datatype-specific networks that are annotated with multiomics datasets as node features. This framework is model-agnostic and could be applied to any classification problem with properly processed datatypes and networks. In our work, SUPREME was applied specifically to the breast cancer subtype prediction problem by applying convolution on patient similarity networks constructed based on multiple biological datasets from breast tumor samples.
+
+First, SUPREME generates network-specific patient embeddings from each datatype separately. Then using those embedding, it does cancer subtype prediction through all the combinations of embeddings, and report the evaluation results.
 
 ---
 
 ## How to run SUPREME?
 
-Run `SUPREME.py` after generating the proper input data.
+Use `SUPREME.py` to run SUPREME.
+Parameters:
+`-csv` : It will automatically convert '.csv' files to '.pkl' files and save them for each input datatype given as `node_networks`.
+`-data`: It specifies the data location to use under the 'data' folder (default is 'sample data').
+`-gpu`: It enables GPU support (default is False).
+`-gpu_id`: It specifies the index of GPU device for users with multiple GPUS. (default is 0).
+
+Example runs:
+- `python SUPREME.py`: runs SUPREME using pkl data files under 'data/sample_data' folder
+- `python SUPREME.py -csv`:  runs SUPREME using csv data files under 'data/sample_data' folder
+- `python SUPREME.py -data user_defined_data`:  runs SUPREME using pkl data files under 'data/user_defined_data' folder
+- `python SUPREME.py -csv -data user_defined_data`:  runs SUPREME using csv data files under 'data/user_defined_data' folder
+- `python SUPREME.py -gpu`:  runs SUPREME using pkl data files under 'data/sample_data' folder with GPU support
+
+### Input files: 
+Files under the *sample_data* folder under *data* folder: 
+- `labels.csv`: Labels of ordered samples (*i*th row has the label of sample with index *i*). First column is label starting from 0 till {number of subtype}-1. First row contains column name.
+- Input features: *i*th row has the feature values of sample with index *i*. (Still, we have column names and row names, even not considered.)
+  - `clinical.csv`: 257 Samples (row) x 10 normalized clinical features (column)
+  - `cna.csv`: 257 Samples (row) x 250 normalized copy number aberration features (column)
+  - `exp.csv`: 257 Samples (row) x 250 normalized gene expression features (column)
+
+- Input networks: First column is rownames, second and third columns will contain sample indexes for the sample-sample pairs having interactions and forth column will be the weight of the interaction.
+  - `edges_clinical.csv`: Clinical-based patient similarity network 
+  - `edges_cna.csv`: Copy number aberration-based patient similarity network
+  - `edges_exp.csv`: Gene expression-based patient similarity network
+
+### Output files:
+Files under the *SUPREME_sample_data_results* folder:
+- `Emb_clinical.csv`: Clinical-based patient embedding
+- `Emb_cna.csv`: Copy number aberration-based patient embedding
+- `Emb_exp.csv`: Gene expression-based patient embedding
+- `SUPREME_results.xlsx`: Evaluation results for each embedding combination. It contains selected hyperparameters and evaluation metrics (accuracy, weighted F1, and macro F1 scores for both the training and testing data) for each embedding combination.
+---
+
+## How to customize SUPREME?
+
+Files under *lib* folder:
+- `function.py`: Includes functions.
+- `module.py`: Graph Convolutional Neural Network-related module.
 
 ### User Options
 
 - Adjust the following variables (lines 2-7):
-  - `addRawFeat`: *True* or *False*: If *True*, raw features from listed datatypes in `features_to_integrate` will be integrated; if *False*, no raw features will be integrated.
+  - `addRawFeat`: *True* or *False*: If *True*, raw features from listed datatypes in `features_to_integrate` will be integrated during prediction; if *False*, no raw features will be integrated (default is *True*). 
   - `base_path`: the path to SUPREME github folder
-  - `dataset_name`: the data folder name in `base_path` including required input data for SUPREME run
-  - `feature_networks_integration`: list of the datatypes to integrate as raw feature
-  - `node_networks`: list of the datatypes to use (should have at least 1 datatype)
-  - `int_method`: method to integrate. Options have 'MLP' for fully connected neural network, 'XGBoost' for XGBoost, 'RF' for Random Forest, 'SVM' for Support Vector Machine. (default is 'MLP'.)
+  - `dataset_name`: the data folder name in `base_path` including required input data to run SUPREME
+  - `feature_networks_integration`: list of the datatypes to integrate as raw features
+  - `node_networks`: list of the datatypes to use (should have at least one datatype)
+  - `int_method`: method to integrate during the prediction of subtypes. Options are 'MLP' for Multi-layer Perceptron, 'XGBoost' for XGBoost, 'RF' for Random Forest, 'SVM' for Support Vector Machine. (default is 'MLP'.)
+  - `feature_selection_per_network`: a list of *True* or *False*: If *True*, the corresponding `top_features_per_network` features are selected from feature selection algorithm; if *False*, all features are used for integration. (order of `feature_selection_per_network` and `top_features_per_network` are same as order of `node_networks`)
+  - `top_features_per_network`: list of numbers: If corresponding `feature_selection_per_network` is *True* and corresponding `top_features_per_network` is less than the input feature number, then feature selection algorithm will be applied for that network. (order of `feature_selection_per_network` and `top_features_per_network` are same as order of `node_networks`)
+  - `boruta_top_features`: the number of top raw features to be integrated as raw features if `optional_feat_selection` and `addRawFeat` are *True*; otherwise ignored.
+  - `optional_feat_selection`: *True* or *False*: If *True*, the top `boruta_top_features` features from each combination of integrated networks are added as raw features; if *False*, all the raw features are added to the embedding. (considered only if `addRawFeat` is *True*)
   
 - Adjust the following hyperparameters (lines 8-15):
   - `max_epochs`: maximum number of epoch (default is 500.)
@@ -27,8 +74,11 @@ Run `SUPREME.py` after generating the proper input data.
   - `patience`: patience for early stopping (default is 30.)
   - `learning_rates`: list of values to try as learning rate (default is [0.001, 0.01, 0.1].)
   - `hid_sizes`: list of values to try as hidden layer size (default is [16, 32, 64, 128, 256, 512].)
-  - `xtimes`: the number of SUPREME runs to select hyperparameter combination (default: 50, should be more than 1.)
-  - `xtimes2`: the number of SUPREME runs for the selected hyperparameter combination (default: 10, should be more than 1.) 
+  - `xtimes`: the number of SUPREME runs to select the best hyperparameter combination during hyperparameter tuning as part of Randomized Search (default: 50, should be more than 1.)
+  - `xtimes2`: the number of SUPREME runs for the selected hyperparameter combination, used to generate the median statistics (default: 10, should be more than 1.) 
+  - `boruta_runs`: the number of times Boruta runs to determine feature significance (default: 100, should be more than 1) (considered only if `addRawFeat` and `optional_feat_selection` are *True*, or if any of the values in `feature_selection_per_network` are *True*)
+  - `enable_CUDA`: *True* or *False*: Enables CUDA if *True* (default is *False*).
+  - `gpu_id`: For users with multiple GPUs, this specifies the index of the GPU device to use (default is 0.)
 
 ---
 
@@ -40,10 +90,11 @@ Run `SUPREME.py` after generating the proper input data.
 - In addition, the *data folder* will contain two '.pkl files per datatype. 
   - `{datatype name}.pkl`: *<class 'pandas.core.frame.DataFrame'>* with the shape of *({sample size}, {selected feature size for that datatype})*
   - `edges_{datatype name}.pkl`: *<class 'pandas.core.frame.DataFrame'>* with the shape of *({Number of patient-patient pair interaction for this datatype}, 3)*. First and second columns will contain patient indexes for the patient-patient pairs having interactions and third column will be the weight of the interaction.
-- The *data folder* might have a file named `mask_values.pkl` if the user wants to specify test samples. `mask_values.pkl` will have two variables in it:
-  - `train_valid_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of sample for training and validation,)* containing the sample indexes for training and validation.
-  - `test_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of sample for test,)* containing the sample indexes for test.
- If `mask_values.pkl` does not exist in *data folder*, SUPREME will generate train and test splits.
+- The *data folder* might have a file named `mask_values.pkl` *(<class 'list'>)* if the user wants to specify test samples. If `mask_values.pkl` does not exist in *data folder*, SUPREME will generate train and test splits. If added, `mask_values.pkl` needs to have two variables in it:
+  - `train_valid_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of samples for training and validation,)* containing the sample indexes for training and validation.
+  - `test_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of samples for test,)* containing the sample indexes for test.
+ 
+ 
 
 ***!! Note that*** sample size and the order of the samples should be the same for whole variables. Sample indexes should start from 0 till *sample size-1* consistent with the sample order.  
 - `labels.pkl` will have the labels of the ordered samples. (*i*th value has the label of sample with index *i*)  
