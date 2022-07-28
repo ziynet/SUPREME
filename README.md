@@ -1,6 +1,8 @@
-# SUPREME: A cancer subtype prediction methodology integrating multiomics data using Graph Convolutional Neural Network
+## SUPREME: A cancer subtype prediction methodology integrating multiomics data using Graph Convolutional Neural Network
 
- <img src="https://ziynetnesibe.com/wp-content/uploads/2022/07/Figure1-2.png" width="800" height="450" />
+For any questions/issues about SUPREME, please feel free to comment/discuss at [https://ziynetnesibe.com/supreme](https://ziynetnesibe.com/supreme)
+
+<img src="https://ziynetnesibe.com/wp-content/uploads/2022/07/Figure1-2.png" width="800" height="450" />
  <!-- ![SUPREME pipeline]  -->
  
 SUPREME (a cancer `SU`btype `PRE`diction `ME`thodology)
