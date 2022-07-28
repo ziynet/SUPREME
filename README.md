@@ -77,10 +77,6 @@ Files under the *SUPREME_sample_data_results* folder:
 
 ## How to customize SUPREME?
 
-Files under *lib* folder:
-- `function.py`: Includes functions.
-- `module.py`: Graph Convolutional Neural Network-related module.
-
 ### SUPREME Flowchart:
  <img src="https://ziynetnesibe.com/wp-content/uploads/2022/07/SUPREME_Flowchart.png"/>
  <!-- ![SUPREME Flowchart]  -->
@@ -124,8 +120,7 @@ Files under *lib* folder:
 - The *data folder* might have a file named `mask_values.pkl` *(<class 'list'>)* if the user wants to specify test samples. If `mask_values.pkl` does not exist in *data folder*, SUPREME will generate train and test splits. If added, `mask_values.pkl` needs to have two variables in it:
   - `train_valid_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of samples for training and validation,)* containing the sample indexes for training and validation.
   - `test_idx`: *<class 'numpy.ndarray'>* with the shape of *({Number of samples for test,)* containing the sample indexes for test.
- 
- 
+  
 
 ***!! Note that*** sample size and the order of the samples should be the same for whole variables. Sample indexes should start from 0 till *sample size-1* consistent with the sample order.  
 - `labels.pkl` will have the labels of the ordered samples. (*i*th value has the label of sample with index *i*)  
@@ -133,5 +128,6 @@ Files under *lib* folder:
 - `edges_{datatype name}.pkl` will have the matching sample indexes to represent interactions.  
 - `train_valid_idx` and `test_idx` will contain the matching sample indexes.
 
-
- 
+Files under *lib* folder:
+- `function.py`: Includes functions.
+- `module.py`: Graph Convolutional Neural Network-related module.
