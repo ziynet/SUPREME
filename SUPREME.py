@@ -305,8 +305,7 @@ for n in range(len(node_networks)):
         pickle.dump(selected_emb, f)
         pd.DataFrame(selected_emb).to_csv(emb_file[:-4] + '.csv')
     
-    print('Embedding for ' + netw_base + ' is generated with lr ' + str(best_emb_lr) + ' and hs ' + str(best_emb_hs) + '.')
-
+    
 addFeatures = []
 t = range(len(node_networks))
 trial_combs = []
