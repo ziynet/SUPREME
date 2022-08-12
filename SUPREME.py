@@ -158,12 +158,13 @@ start = time.time()
 
 is_first = 0
 
+print('SUPREME is running..')
+            
 for netw in node_networks:
     file = base_path + 'data/' + dataset_name +'/'+ netw +'.pkl'
     with open(file, 'rb') as f:
         feat = pickle.load(f)
         if feature_selection_per_network[node_networks.index(netw)] and top_features_per_network[node_networks.index(netw)] < feat.values.shape[1]:     
-            print('SUPREME is running feature selection for input feature of ' + netw + '..')
             feat_flat = [item for sublist in feat.values.tolist() for item in sublist]
             feat_temp = robjects.FloatVector(feat_flat)
             robjects.globalenv['feat_matrix'] = robjects.r('matrix')(feat_temp)
@@ -212,7 +213,6 @@ for netw in node_networks:
     
 for n in range(len(node_networks)):
     netw_base = node_networks[n]
-    print('SUPREME is generating ' + netw_base + ' embedding..')
     with open(data_path_node + 'edges_' + netw_base + '.pkl', 'rb') as f:
         edge_index = pickle.load(f)
     best_ValidLoss = np.Inf
@@ -310,7 +310,6 @@ for n in range(len(node_networks)):
     
     print('Embedding for ' + netw_base + ' is generated with lr ' + str(best_emb_lr) + ' and hs ' + str(best_emb_hs) + '.')
 
-print('SUPREME is integrating embeddings with ' + int_method + '..')
 addFeatures = []
 t = range(len(node_networks))
 trial_combs = []
@@ -346,7 +345,6 @@ for trials in range(len(trial_combs)):
                 allx = torch.cat((allx, torch.tensor(feat.values, device=device).float()), dim=1)   
         
         if optional_feat_selection == True:     
-            print('SUPREME is running the optional feature selection for raw features to integrate..')
             allx_flat = [item for sublist in allx.tolist() for item in sublist]
             allx_temp = robjects.FloatVector(allx_flat)
             robjects.globalenv['allx_matrix'] = robjects.r('matrix')(allx_temp)
