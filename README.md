@@ -2,6 +2,8 @@
 
  For data customization or any other questions/issues about SUPREME, please feel free to comment/discuss at [https://ziynetnesibe.com/supreme](https://ziynetnesibe.com/supreme)
  
+ To learn more about SUPREME, read our paper at: https://www.biorxiv.org/content/10.1101/2022.08.03.502682v1
+
  <img src="https://ziynetnesibe.com/wp-content/uploads/2022/07/SUPREME.png"  width="819" height="439"/>
  <!-- ![SUPREME pipeline]  -->
  
@@ -33,9 +35,8 @@ Combination 3 ['clinical', 'cna'] >  selected parameters = {'n_iter_no_change': 
 Combination 4 ['clinical', 'exp'] >  selected parameters = {'n_iter_no_change': 70, 'max_iter': 250, 'learning_rate_init': 0.1, 'hidden_layer_sizes': (128,)}, train accuracy = 0.914+-0.051, train weighted-f1 = 0.915+-0.054, train macro-f1 = 0.847+-0.084, test accuracy = 0.816+-0.038, test weighted-f1 = 0.795+-0.037, test macro-f1 = 0.685+-0.072
 Combination 5 ['cna', 'exp'] >  selected parameters = {'n_iter_no_change': 60, 'max_iter': 250, 'learning_rate_init': 0.01, 'hidden_layer_sizes': (512,)}, train accuracy = 0.953+-0.032, train weighted-f1 = 0.954+-0.032, train macro-f1 = 0.941+-0.04, test accuracy = 0.831+-0.018, test weighted-f1 = 0.824+-0.017, test macro-f1 = 0.748+-0.038
 Combination 6 ['clinical', 'cna', 'exp'] >  selected parameters = {'n_iter_no_change': 80, 'max_iter': 250, 'learning_rate_init': 0.001, 'hidden_layer_sizes': (64,)}, train accuracy = 0.972+-0.069, train weighted-f1 = 0.97+-0.072, train macro-f1 = 0.944+-0.123, test accuracy = 0.831+-0.038, test weighted-f1 = 0.814+-0.051, test macro-f1 = 0.652+-0.117
-It took 1097.5 seconds for all runs.
+It took 63.5 seconds for all runs.
 SUPREME is done.
-Results are available at SUPREME_sample_data_results/SUPREME_results.xlsx
 ```
 
 ### Input files: 
@@ -56,10 +57,8 @@ Files under the *SUPREME_sample_data_results* folder:
 - `Emb_clinical.csv`: Clinical-based patient embedding
 - `Emb_cna.csv`: Copy number aberration-based patient embedding
 - `Emb_exp.csv`: Gene expression-based patient embedding
-- `SUPREME_results.xlsx`: Evaluation results for each embedding combination. It contains selected hyperparameters and evaluation metrics (accuracy, weighted F1, and macro F1 scores for both the training and testing data) for each embedding combination.
 
 ### Files under *lib* folder:
-- `function.py`: Includes functions.
 - `module.py`: Graph Convolutional Neural Network-related module.
 ---
 
@@ -87,8 +86,8 @@ Files under the *SUPREME_sample_data_results* folder:
   - `max_epochs`: maximum number of epoch (default is 500.)
   - `min_epochs`: minimum number of epoch (default is 200.)
   - `patience`: patience for early stopping (default is 30.)
-  - `learning_rates`: list of values to try as learning rate (default is [0.001, 0.01, 0.1].)
-  - `hid_sizes`: list of values to try as hidden layer size (default is [16, 32, 64, 128, 256, 512].)
+  - `learning_rate`: learning rate (default is 0.001.)
+  - `hidden_size`: hidden size (default is 256.)
   - `xtimes`: the number of SUPREME runs to select the best hyperparameter combination during hyperparameter tuning as part of Randomized Search (default: 50, should be more than 1.)
   - `xtimes2`: the number of SUPREME runs for the selected hyperparameter combination, used to generate the median statistics (default: 10, should be more than 1.) 
   - `boruta_runs`: the number of times Boruta runs to determine feature significance (default: 100, should be more than 1) (considered only if `addRawFeat` and `optional_feat_selection` are *True*, or if any of the values in `feature_selection_per_network` are *True*)
@@ -114,3 +113,26 @@ Files under the *SUPREME_sample_data_results* folder:
 - `{datatype name}.pkl` will have the values of the ordered samples in each datatype (feature size could be datatype specific). (*i*th row has the feature values of sample with index *i*)  
 - `edges_{datatype name}.pkl` will have the matching sample indexes to represent interactions.  
 - `train_valid_idx` and `test_idx` will contain the matching sample indexes.
+
+
+
+Relevant package versions in the environment:
+```
+# Name                    Version                   Build  Channel
+cpuonly                   2.0                           0    pytorch
+numpy                     1.19.2           py36hadc3359_0
+pandas                    1.1.5                    pypi_0    pypi
+pickle5                   0.0.12                   pypi_0    pypi
+pip                       21.3.1                   pypi_0    pypi
+python                    3.6.13               h3758d61_0
+python-dateutil           2.8.2                    pypi_0    pypi
+pytorch                   1.10.2              py3.6_cpu_0    pytorch
+pytorch-mutex             1.0                         cpu    pytorch
+rpy2                      3.4.5                    pypi_0    pypi
+scikit-learn              0.24.2                   pypi_0    pypi
+torch-geometric           2.0.3                    pypi_0    pypi
+torch-scatter             2.0.9                    pypi_0    pypi
+torch-sparse              0.6.12                   pypi_0    pypi
+torchaudio                0.10.2                 py36_cpu  [cpuonly]  pytorch
+torchvision               0.11.3                 py36_cpu  [cpuonly]  pytorch
+```
