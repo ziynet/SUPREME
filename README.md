@@ -1,4 +1,4 @@
-## SUPREME: A cancer subtype prediction methodology integrating multiomics data using Graph Convolutional Neural Network
+## SUPREME: Multiomics Data Integration Using Graph Convolutional Networks
 
  For data customization or any other questions/issues about SUPREME, please feel free to comment/discuss at [https://ziynetnesibe.com/supreme](https://ziynetnesibe.com/supreme)
  
@@ -7,13 +7,20 @@
  <img src="https://ziynetnesibe.com/wp-content/uploads/2022/07/SUPREME.png"  width="819" height="439"/>
  <!-- ![SUPREME pipeline]  -->
  
-SUPREME (a cancer `SU`btype `PRE`diction `ME`thodology)
+SUPREME
 
 An integrative node classification framework, called SUPREME (a **su**btype **pre**diction **me**thodology), that utilizes graph convolutions on multiple datatype-specific networks that are annotated with multiomics datasets as node features. This framework is model-agnostic and could be applied to any classification problem with properly processed datatypes and networks. In our work, SUPREME was applied specifically to the breast cancer subtype prediction problem by applying convolution on patient similarity networks constructed based on multiple biological datasets from breast tumor samples.
 
 First, SUPREME generates network-specific patient embeddings from each datatype separately. Then using those embedding, it does cancer subtype prediction through all the combinations of embeddings, and report the evaluation results.
 
 ---
+
+## For quick testing of SUPREME
+Adjust the following hyperparameters (lines 10-13, 23):
+  - reduce `max_epochs`, `xtimes`, and `xtimes2` to a small number such as 2.
+  - keep only one element in `learning_rates` such as [0.01]
+  - keep only one element in `hidden_sizes` such as [32]
+
 
 ## How to run SUPREME?
 
@@ -28,14 +35,16 @@ Sample console output:
 ``` > python SUPREME.py
 SUPREME is setting up!
 SUPREME is running..
-Combination 0 ['clinical'] >  selected parameters = {'n_iter_no_change': 10, 'max_iter': 500, 'learning_rate_init': 0.01, 'hidden_layer_sizes': (32, 32)}, train accuracy = 0.899+-0.067, train weighted-f1 = 0.889+-0.072, train macro-f1 = 0.845+-0.136, test accuracy = 0.815+-0.029, test weighted-f1 = 0.782+-0.034, test macro-f1 = 0.646+-0.08
-Combination 1 ['cna'] >  selected parameters = {'n_iter_no_change': 80, 'max_iter': 2000, 'learning_rate_init': 0.1, 'hidden_layer_sizes': (32,)}, train accuracy = 0.935+-0.056, train weighted-f1 = 0.936+-0.062, train macro-f1 = 0.899+-0.115, test accuracy = 0.838+-0.04, test weighted-f1 = 0.839+-0.058, test macro-f1 = 0.734+-0.121
-Combination 2 ['exp'] >  selected parameters = {'n_iter_no_change': 50, 'max_iter': 500, 'learning_rate_init': 0.01, 'hidden_layer_sizes': (128,)}, train accuracy = 0.972+-0.057, train weighted-f1 = 0.972+-0.062, train macro-f1 = 0.962+-0.11, test accuracy = 0.846+-0.042, test weighted-f1 = 0.841+-0.048, test macro-f1 = 0.777+-0.083
-Combination 3 ['clinical', 'cna'] >  selected parameters = {'n_iter_no_change': 90, 'max_iter': 2000, 'learning_rate_init': 0.01, 'hidden_layer_sizes': (128,)}, train accuracy = 0.938+-0.048, train weighted-f1 = 0.939+-0.048, train macro-f1 = 0.919+-0.08, test accuracy = 0.838+-0.034, test weighted-f1 = 0.833+-0.039, test macro-f1 = 0.731+-0.105
-Combination 4 ['clinical', 'exp'] >  selected parameters = {'n_iter_no_change': 70, 'max_iter': 250, 'learning_rate_init': 0.1, 'hidden_layer_sizes': (128,)}, train accuracy = 0.914+-0.051, train weighted-f1 = 0.915+-0.054, train macro-f1 = 0.847+-0.084, test accuracy = 0.816+-0.038, test weighted-f1 = 0.795+-0.037, test macro-f1 = 0.685+-0.072
-Combination 5 ['cna', 'exp'] >  selected parameters = {'n_iter_no_change': 60, 'max_iter': 250, 'learning_rate_init': 0.01, 'hidden_layer_sizes': (512,)}, train accuracy = 0.953+-0.032, train weighted-f1 = 0.954+-0.032, train macro-f1 = 0.941+-0.04, test accuracy = 0.831+-0.018, test weighted-f1 = 0.824+-0.017, test macro-f1 = 0.748+-0.038
-Combination 6 ['clinical', 'cna', 'exp'] >  selected parameters = {'n_iter_no_change': 80, 'max_iter': 250, 'learning_rate_init': 0.001, 'hidden_layer_sizes': (64,)}, train accuracy = 0.972+-0.069, train weighted-f1 = 0.97+-0.072, train macro-f1 = 0.944+-0.123, test accuracy = 0.831+-0.038, test weighted-f1 = 0.814+-0.051, test macro-f1 = 0.652+-0.117
-It took 63.5 seconds for all runs.
+It took 488.5 seconds for node embedding generation (12 trials for 3 seperate GCNs).
+SUPREME is integrating the embeddings..
+Combination 0 ['clinical'] >  selected parameters = {'hidden_layer_sizes': (256,)}, train accuracy = 0.948+-0.088, train weighted-f1 = 0.946+-0.092, train macro-f1 = 0.929+-0.157, test accuracy = 0.808+-0.047, test weighted-f1 = 0.782+-0.052, test macro-f1 = 0.571+-0.09
+Combination 1 ['cna'] >  selected parameters = {'hidden_layer_sizes': (64, 32)}, train accuracy = 0.95+-0.084, train weighted-f1 = 0.949+-0.09, train macro-f1 = 0.917+-0.153, test accuracy = 0.815+-0.074, test weighted-f1 = 0.793+-0.091, test macro-f1 = 0.603+-0.143
+Combination 2 ['exp'] >  selected parameters = {'hidden_layer_sizes': (256,)}, train accuracy = 0.935+-0.067, train weighted-f1 = 0.934+-0.073, train macro-f1 = 0.9+-0.136, test accuracy = 0.815+-0.026, test weighted-f1 = 0.798+-0.032, test macro-f1 = 0.609+-0.06
+Combination 3 ['clinical', 'cna'] >  selected parameters = {'hidden_layer_sizes': (512, 32)}, train accuracy = 0.987+-0.052, train weighted-f1 = 0.986+-0.056, train macro-f1 = 0.986+-0.107, test accuracy = 0.846+-0.035, test weighted-f1 = 0.829+-0.039, test macro-f1 = 0.674+-0.09
+Combination 4 ['clinical', 'exp'] >  selected parameters = {'hidden_layer_sizes': (128,)}, train accuracy = 0.93+-0.099, train weighted-f1 = 0.927+-0.11, train macro-f1 = 0.883+-0.187, test accuracy = 0.808+-0.051, test weighted-f1 = 0.784+-0.051, test macro-f1 = 0.598+-0.099
+Combination 5 ['cna', 'exp'] >  selected parameters = {'hidden_layer_sizes': (32,)}, train accuracy = 0.943+-0.066, train weighted-f1 = 0.943+-0.074, train macro-f1 = 0.912+-0.133, test accuracy = 0.831+-0.031, test weighted-f1 = 0.825+-0.037, test macro-f1 = 0.702+-0.095
+Combination 6 ['clinical', 'cna', 'exp'] >  selected parameters = {'hidden_layer_sizes': (256,)}, train accuracy = 0.979+-0.034, train weighted-f1 = 0.979+-0.035, train macro-f1 = 0.974+-0.06, test accuracy = 0.846+-0.033, test weighted-f1 = 0.836+-0.041, test macro-f1 = 0.718+-0.094
+It took 532.6 seconds in total.
 SUPREME is done.
 ```
 
@@ -82,14 +91,14 @@ Files under the *SUPREME_sample_data_results* folder:
   - `boruta_top_features`: the number of top raw features to be integrated as raw features if `optional_feat_selection` and `addRawFeat` are *True*; otherwise ignored.
   - `optional_feat_selection`: *True* or *False*: If *True*, the top `boruta_top_features` features from each combination of integrated networks are added as raw features; if *False*, all the raw features are added to the embedding. (considered only if `addRawFeat` is *True*)
   
-- Adjust the following hyperparameters (lines 8-15):
+- Adjust the following hyperparameters (lines 10-13, 19, 23-25):
   - `max_epochs`: maximum number of epoch (default is 500.)
   - `min_epochs`: minimum number of epoch (default is 200.)
   - `patience`: patience for early stopping (default is 30.)
-  - `learning_rate`: learning rate (default is 0.001.)
-  - `hidden_size`: hidden size (default is 256.)
-  - `xtimes`: the number of SUPREME runs to select the best hyperparameter combination during hyperparameter tuning as part of Randomized Search (default: 50, should be more than 1.)
-  - `xtimes2`: the number of SUPREME runs for the selected hyperparameter combination, used to generate the median statistics (default: 10, should be more than 1.) 
+  - `learning_rates`: list of learning rates to tune GCN's hyperparameters (default is [0.01, 0.001, 0.0001].)
+  - `hidden_sizes`: list of hidden sizes to tune GCN's hyperparameters (default is [32, 64, 128, 256].)
+  - `xtimes`: the number of SUPREME runs to select the best hyperparameter combination during hyperparameter tuning as part of Randomized Search (default is 50, should be more than 1.)
+  - `xtimes2`: the number of SUPREME runs for the selected hyperparameter combination, used to generate the median statistics (default: 10) 
   - `boruta_runs`: the number of times Boruta runs to determine feature significance (default: 100, should be more than 1) (considered only if `addRawFeat` and `optional_feat_selection` are *True*, or if any of the values in `feature_selection_per_network` are *True*)
  
 ---
@@ -135,4 +144,5 @@ torch-scatter             2.0.9                    pypi_0    pypi
 torch-sparse              0.6.12                   pypi_0    pypi
 torchaudio                0.10.2                 py36_cpu  [cpuonly]  pytorch
 torchvision               0.11.3                 py36_cpu  [cpuonly]  pytorch
+xgboost                   1.5.2                    pypi_0    pypi
 ```
