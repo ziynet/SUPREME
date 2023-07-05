@@ -2,7 +2,7 @@
 
  For data customization or any other questions/issues about SUPREME, please feel free to comment/discuss at [https://ziynetnesibe.com/supreme](https://ziynetnesibe.com/supreme)
  
- To learn more about SUPREME, read our paper at: https://www.biorxiv.org/content/10.1101/2022.08.03.502682v1
+ To learn more about SUPREME, read our paper at: [https://academic.oup.com/nargab/article/5/2/lqad063/7209332](https://academic.oup.com/nargab/article/5/2/lqad063/7209332)
 
  <img src="https://ziynetnesibe.com/wp-content/uploads/2022/07/SUPREME.png"  width="819" height="439"/>
  <!-- ![SUPREME pipeline]  -->
