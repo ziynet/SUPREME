@@ -1,4 +1,4 @@
-## SUPREME: Multiomics Data Integration Using Graph Convolutional Networks
+## SUPREME: multiomics data integration using graph convolutional networks
 
  For data customization or any other questions/issues about SUPREME, please feel free to comment/discuss at [https://ziynetnesibe.com/supreme](https://ziynetnesibe.com/supreme)
  
