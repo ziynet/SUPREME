@@ -215,6 +215,7 @@ for n in range(len(node_networks)):
                     if this_valid_loss < min_valid_loss:
                         min_valid_loss = this_valid_loss
                         patience_count = 0
+                        this_emb = emb
                     else:
                         patience_count += 1
 
@@ -229,7 +230,7 @@ for n in range(len(node_networks)):
                 best_ValidLoss = av_valid_loss
                 best_emb_lr = learning_rate
                 best_emb_hs = hid_size
-				selected_emb = emb
+                selected_emb = this_emb
 
 
     emb_file = save_path + 'Emb_' +  netw_base + '.pkl'
